@@ -16,7 +16,7 @@ TypeParameterList:
     TypeParameterList , TypeParameter
 
 TypeParameter:
-    Identifier Constraintopt
+    Identifier Constraint(opt)
 
 Constraint:
     extends Type
@@ -35,7 +35,7 @@ PredefinedType:
     void
 
 TypeReference:
-    TypeName [no LineTerminator here] TypeArgumentsopt
+    TypeName [no LineTerminator here] TypeArguments(opt)
 
 TypeName:
     Identifier
@@ -79,16 +79,16 @@ ElementType:
     ArrayType
 
 FunctionType:
-    TypeParametersopt ( ParameterListopt ) => Type
+    TypeParameters(opt) ( ParameterList(opt) ) => Type
 
 ConstructorType:
-    new TypeParametersopt ( ParameterListopt ) => Type
+    new TypeParameters(opt) ( ParameterList(opt) ) => Type
 
 ObjectType:
-    { TypeBodyopt }
+    { TypeBody(opt) }
 
 TypeBody:
-    TypeMemberList ;opt
+    TypeMemberList ;(opt)
 
 TypeMemberList:
     TypeMember
@@ -102,7 +102,7 @@ TypeMember:
     MethodSignature
 
 PropertySignature:
-    PropertyName ?opt TypeAnnotationopt
+    PropertyName ?(opt) TypeAnnotation(opt)
 
 PropertyName:
     IdentifierName
@@ -110,7 +110,7 @@ PropertyName:
     NumericLiteral
 
 CallSignature:
-    TypeParametersopt ( ParameterListopt ) TypeAnnotationopt
+    TypeParameters(opt) ( ParameterList(opt) ) TypeAnnotation(opt)
 
 ParameterList:
     RequiredParameterList
@@ -126,7 +126,7 @@ RequiredParameterList:
     RequiredParameterList , RequiredParameter
 
 RequiredParameter:
-    PublicOrPrivateopt Identifier TypeAnnotationopt
+    PublicOrPrivate(opt) Identifier TypeAnnotation(opt)
     Identifier : StringLiteral
 
 PublicOrPrivate:
@@ -138,21 +138,21 @@ OptionalParameterList:
     OptionalParameterList , OptionalParameter
 
 OptionalParameter:
-    PublicOrPrivateopt Identifier ? TypeAnnotationopt
-    PublicOrPrivateopt Identifier TypeAnnotationopt Initialiser
+    PublicOrPrivate(opt) Identifier ? TypeAnnotation(opt)
+    PublicOrPrivate(opt) Identifier TypeAnnotation(opt) Initialiser
 
 RestParameter:
-    ... Identifier TypeAnnotationopt
+    ... Identifier TypeAnnotation(opt)
 
 ConstructSignature:
-    new TypeParametersopt ( ParameterListopt ) TypeAnnotationopt
+    new TypeParameters(opt) ( ParameterList(opt) ) TypeAnnotation(opt)
 
 IndexSignature:
     [ Identifier : string ] TypeAnnotation
     [ Identifier : number ] TypeAnnotation
 
 MethodSignature:
-    PropertyName ?opt CallSignature
+    PropertyName ?(opt) CallSignature
 ```
 
 ## A.2 Expressions
@@ -165,18 +165,18 @@ PropertyAssignment: ( Modified )
     SetAccessor
 
 GetAccessor:
-    get PropertyName ( ) TypeAnnotationopt { FunctionBody }
+    get PropertyName ( ) TypeAnnotation(opt) { FunctionBody }
 
 SetAccessor:
-    set PropertyName ( Identifier TypeAnnotationopt ) { FunctionBody }
+    set PropertyName ( Identifier TypeAnnotation(opt) ) { FunctionBody }
 
 CallExpression: ( Modified )
     ...
-    super ( ArgumentListopt )
+    super ( ArgumentList(opt) )
     super . IdentifierName
 
 FunctionExpression: ( Modified )
-    function Identifieropt CallSignature { FunctionBody }
+    function Identifier(opt) CallSignature { FunctionBody }
 
 AssignmentExpression: ( Modified )
     ...
@@ -191,7 +191,7 @@ ArrowFormalParameters:
     Identifier
 
 Arguments: ( Modified )
-    TypeArgumentsopt ( ArgumentListopt )
+    TypeArguments(opt) ( ArgumentList(opt) )
 
 UnaryExpression: ( Modified )
     ...
@@ -202,10 +202,10 @@ UnaryExpression: ( Modified )
 
 ```text
 VariableDeclaration: ( Modified )
-    Identifier TypeAnnotationopt Initialiseropt
+    Identifier TypeAnnotation(opt) Initialiser(opt)
 
 VariableDeclarationNoIn: ( Modified )
-    Identifier TypeAnnotationopt InitialiserNoInopt
+    Identifier TypeAnnotation(opt) InitialiserNoIn(opt)
 
 TypeAnnotation:
     : Type
@@ -215,7 +215,7 @@ TypeAnnotation:
 
 ```text
 FunctionDeclaration: ( Modified )
-    FunctionOverloadsopt FunctionImplementation
+    FunctionOverloads(opt) FunctionImplementation
 
 FunctionOverloads:
     FunctionOverload
@@ -232,7 +232,7 @@ FunctionImplementation:
 
 ```text
 InterfaceDeclaration:
-    interface Identifier TypeParametersopt InterfaceExtendsClauseopt ObjectType
+    interface Identifier TypeParameters(opt) InterfaceExtendsClause(opt) ObjectType
 
 InterfaceExtendsClause:
     extends ClassOrInterfaceTypeList
@@ -249,10 +249,10 @@ ClassOrInterfaceType:
 
 ```text
 ClassDeclaration:
-    class Identifier TypeParametersopt ClassHeritage { ClassBody }
+    class Identifier TypeParameters(opt) ClassHeritage { ClassBody }
 
 ClassHeritage:
-    ClassExtendsClauseopt ImplementsClauseopt
+    ClassExtendsClause(opt) ImplementsClause(opt)
 
 ClassExtendsClause:
     extends ClassType
@@ -264,7 +264,7 @@ ImplementsClause:
     implements ClassOrInterfaceTypeList
 
 ClassBody:
-    ClassElementsopt
+    ClassElements(opt)
 
 ClassElements:
     ClassElement
@@ -276,17 +276,17 @@ ClassElement:
     IndexMemberDeclaration
 
 ConstructorDeclaration:
-    ConstructorOverloadsopt ConstructorImplementation
+    ConstructorOverloads(opt) ConstructorImplementation
 
 ConstructorOverloads:
     ConstructorOverload
     ConstructorOverloads ConstructorOverload
 
 ConstructorOverload:
-    PublicOrPrivateopt constructor ( ParameterListopt ) ;
+    PublicOrPrivate(opt) constructor ( ParameterList(opt) ) ;
 
 ConstructorImplementation:
-    PublicOrPrivateopt constructor ( ParameterListopt ) { FunctionBody }
+    PublicOrPrivate(opt) constructor ( ParameterList(opt) ) { FunctionBody }
 
 PropertyMemberDeclaration:
     MemberVariableDeclaration
@@ -294,24 +294,24 @@ PropertyMemberDeclaration:
     MemberAccessorDeclaration
 
 MemberVariableDeclaration:
-    PublicOrPrivateopt staticopt PropertyName TypeAnnotationopt Initialiseropt ;
+    PublicOrPrivate(opt) static(opt) PropertyName TypeAnnotation(opt) Initialiser(opt) ;
 
 MemberFunctionDeclaration:
-    MemberFunctionOverloadsopt MemberFunctionImplementation
+    MemberFunctionOverloads(opt) MemberFunctionImplementation
 
 MemberFunctionOverloads:
     MemberFunctionOverload
     MemberFunctionOverloads MemberFunctionOverload
 
 MemberFunctionOverload:
-    PublicOrPrivateopt staticopt PropertyName CallSignature ;
+    PublicOrPrivate(opt) static(opt) PropertyName CallSignature ;
 
 MemberFunctionImplementation:
-    PublicOrPrivateopt staticopt PropertyName CallSignature { FunctionBody }
+    PublicOrPrivate(opt) static(opt) PropertyName CallSignature { FunctionBody }
 
 MemberAccessorDeclaration:
-    PublicOrPrivateopt staticopt GetAccessor
-    PublicOrPrivateopt staticopt SetAccessor
+    PublicOrPrivate(opt) static(opt) GetAccessor
+    PublicOrPrivate(opt) static(opt) SetAccessor
 
 IndexMemberDeclaration:
     IndexSignature ;
@@ -321,12 +321,12 @@ IndexMemberDeclaration:
 
 ```text
 EnumDeclaration:
-    enum Identifier { EnumBodyopt }
+    enum Identifier { EnumBody(opt) }
 
 EnumBody:
-    ConstantEnumMembers ,opt
-    ConstantEnumMembers , EnumMemberSections ,opt
-    EnumMemberSections ,opt
+    ConstantEnumMembers ,(opt)
+    ConstantEnumMembers , EnumMemberSections ,(opt)
+    EnumMemberSections ,(opt)
 
 ConstantEnumMembers:
     PropertyName
@@ -357,7 +357,7 @@ IdentifierPath:
     IdentifierPath . Identifier
 
 ModuleBody:
-    ModuleElementsopt
+    ModuleElements(opt)
 
 ModuleElements:
     ModuleElement
@@ -365,13 +365,13 @@ ModuleElements:
 
 ModuleElement:
     Statement
-    exportopt VariableDeclaration
-    exportopt FunctionDeclaration
-    exportopt ClassDeclaration
-    exportopt InterfaceDeclaration
-    exportopt EnumDeclaration
-    exportopt ModuleDeclaration
-    exportopt ImportDeclaration
+    export(opt) VariableDeclaration
+    export(opt) FunctionDeclaration
+    export(opt) ClassDeclaration
+    export(opt) InterfaceDeclaration
+    export(opt) EnumDeclaration
+    export(opt) ModuleDeclaration
+    export(opt) ImportDeclaration
 
 ImportDeclaration:
     import Identifier = EntityName ;
@@ -389,7 +389,7 @@ SourceFile:
     DeclarationSourceFile
 
 ImplementationSourceFile:
-    ImplementationElementsopt
+    ImplementationElements(opt)
 
 ImplementationElements:
     ImplementationElement
@@ -398,11 +398,11 @@ ImplementationElements:
 ImplementationElement:
     ModuleElement
     ExportAssignment
-    exportopt ExternalImportDeclaration
-    exportopt AmbientDeclaration
+    export(opt) ExternalImportDeclaration
+    export(opt) AmbientDeclaration
 
 DeclarationSourceFile:
-    DeclarationElementsopt
+    DeclarationElements(opt)
 
 DeclarationElements:
     DeclarationElement
@@ -410,10 +410,10 @@ DeclarationElements:
 
 DeclarationElement:
     ExportAssignment
-    exportopt InterfaceDeclaration
-    exportopt ImportDeclaration
-    exportopt ExternalImportDeclaration
-    exportopt AmbientDeclaration
+    export(opt) InterfaceDeclaration
+    export(opt) ImportDeclaration
+    export(opt) ExternalImportDeclaration
+    export(opt) AmbientDeclaration
 
 ExternalImportDeclaration:
     import Identifier = ExternalModuleReference ;
@@ -437,16 +437,16 @@ AmbientDeclaration:
     declare AmbientExternalModuleDeclaration
 
 AmbientVariableDeclaration:
-    var Identifier TypeAnnotationopt ;
+    var Identifier TypeAnnotation(opt) ;
 
 AmbientFunctionDeclaration:
     function Identifier CallSignature ;
 
 AmbientClassDeclaration:
-    class Identifier TypeParametersopt ClassHeritage { AmbientClassBody }
+    class Identifier TypeParameters(opt) ClassHeritage { AmbientClassBody }
 
 AmbientClassBody:
-    AmbientClassBodyElementsopt
+    AmbientClassBodyElements(opt)
 
 AmbientClassBodyElements:
     AmbientClassBodyElement
@@ -458,17 +458,17 @@ AmbientClassBodyElement:
     IndexSignature
 
 AmbientConstructorDeclaration:
-    constructor ( ParameterListopt ) ;
+    constructor ( ParameterList(opt) ) ;
 
 AmbientPropertyMemberDeclaration:
-    PublicOrPrivateopt staticopt PropertyName TypeAnnotationopt ;
-    PublicOrPrivateopt staticopt PropertyName CallSignature ;
+    PublicOrPrivate(opt) static(opt) PropertyName TypeAnnotation(opt) ;
+    PublicOrPrivate(opt) static(opt) PropertyName CallSignature ;
 
 AmbientEnumDeclaration:
-    enum Identifier { AmbientEnumBodyopt }
+    enum Identifier { AmbientEnumBody(opt) }
 
 AmbientEnumBody:
-    AmbientEnumMemberList ,opt
+    AmbientEnumMemberList ,(opt)
 
 AmbientEnumMemberList:
     AmbientEnumMember
@@ -482,26 +482,26 @@ AmbientModuleDeclaration:
     module IdentifierPath { AmbientModuleBody }
 
 AmbientModuleBody:
-    AmbientModuleElementsopt
+    AmbientModuleElements(opt)
 
 AmbientModuleElements:
     AmbientModuleElement
     AmbientModuleElements AmbientModuleElement
 
 AmbientModuleElement:
-    exportopt AmbientVariableDeclaration
-    exportopt AmbientFunctionDeclaration
-    exportopt AmbientClassDeclaration
-    exportopt InterfaceDeclaration
-    exportopt AmbientEnumDeclaration
-    exportopt AmbientModuleDeclaration
-    exportopt ImportDeclaration
+    export(opt) AmbientVariableDeclaration
+    export(opt) AmbientFunctionDeclaration
+    export(opt) AmbientClassDeclaration
+    export(opt) InterfaceDeclaration
+    export(opt) AmbientEnumDeclaration
+    export(opt) AmbientModuleDeclaration
+    export(opt) ImportDeclaration
 
 AmbientExternalModuleDeclaration:
     module StringLiteral { AmbientExternalModuleBody }
 
 AmbientExternalModuleBody:
-    AmbientExternalModuleElementsopt
+    AmbientExternalModuleElements(opt)
 
 AmbientExternalModuleElements:
     AmbientExternalModuleElement
@@ -510,5 +510,5 @@ AmbientExternalModuleElements:
 AmbientExternalModuleElement:
     AmbientModuleElement
     ExportAssignment
-    exportopt ExternalImportDeclaration
+    export(opt) ExternalImportDeclaration
 ```
