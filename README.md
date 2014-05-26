@@ -25,4 +25,4 @@ This is Markdown version of [TypeScript Language Specification 1.0](http://www.t
 The original spec is lisenced under [the Open Web Foundation Final Specification
 Agreement Version 1.0](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-0).
 
-This version is lisenced under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
+This work is lisenced under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
