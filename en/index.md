@@ -95,13 +95,13 @@ TypeScript is a trademark of Microsoft Corporation.
     * 4.13 Type Assertions
     * 4.14 Unary Operators
         * 4.14.1 The ++ and -- operators
-        * 4.14.2 The +, ., and ~ operators
+        * 4.14.2 The +, -, and ~ operators
         * 4.14.3 The ! operator
         * 4.14.4 The delete Operator
         * 4.14.5 The void Operator
         * 4.14.6 The typeof Operator
     * 4.15 Binary Operators
-        * 4.15.1 The *, /, %, ., <<, >>, >>>, &, ^, and | operators
+        * 4.15.1 The *, /, %, -, <<, >>, >>>, &, ^, and | operators
         * 4.15.2 The + operator
         * 4.15.3 The <, >, <=, >=, ==, !=, ===, and !== operators
         * 4.15.4 The instanceof operator
