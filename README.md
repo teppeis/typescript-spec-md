@@ -1,3 +1,6 @@
+仕様書の原本はこちら
+* [TypeScript言語仕様](https://github.com/Microsoft/TypeScript/blob/master/doc/TypeScript%20Language%20Specification.pdf)
+
 TypeScript Spec in Markdown
 ====
 
