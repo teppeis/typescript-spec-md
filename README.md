@@ -1,3 +1,9 @@
+### **** Deprecated ****
+
+[spec.md](https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md) is provided officially now!
+
+----
+
 TypeScript Spec in Markdown
 ====
 
